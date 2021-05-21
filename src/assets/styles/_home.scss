@@ -2,23 +2,35 @@
 
 header {
   display: flex;
+<<<<<<< HEAD
   background-color: $brown;
+=======
+  background-color: rgb(80, 1, 1);
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
   padding: 20px;
   color: white;
   text-align: center;
   justify-content: flex-start;
+<<<<<<< HEAD
   align-items: center;
+=======
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
   h1 {
     flex-basis: 60%;
   }
   button {
     flex-basis: 20%;
+<<<<<<< HEAD
     background-color: $orange;
+=======
+    background-color: rgb(241, 70, 28);
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
     border-radius: 5px;
     color: rgb(255, 255, 255);
     outline: none;
     border: none;
     font-size: 1.5rem;
+<<<<<<< HEAD
     &:hover {
       background-color: $blue;
     }
@@ -28,6 +40,8 @@ header {
     fill: $orange;
     width: 50px;
     height: 50px;
+=======
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
   }
 }
 
@@ -42,7 +56,11 @@ header {
   height: 100vh;
 
   #sidebar {
+<<<<<<< HEAD
     background-color: $orange;
+=======
+    background-color: rgb(241, 70, 28);
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
     color: white;
     height: 50px;
     line-height: 50px;
@@ -58,7 +76,11 @@ header {
       cursor: pointer;
       text-align: center;
       &:hover {
+<<<<<<< HEAD
         background-color: $blue;
+=======
+        background-color: rgb(0, 132, 255);
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
       }
     }
   }
@@ -75,12 +97,27 @@ header {
       width: 80%;
       margin: 0px auto;
     }
+<<<<<<< HEAD
     .todo-container {
+=======
+    .todo {
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
       margin-top: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-direction: row;
+<<<<<<< HEAD
+=======
+    }
+    li {
+      flex-basis: 70%;
+      text-align: center;
+      background-color: rgb(0, 132, 255);
+      border-radius: 5px;
+      line-height: 40px;
+      color: white;
+>>>>>>> edbff69c03fef0e2ea6741243f4e98452a832562
     }
     li {
       flex-basis: 70%;
@@ -111,5 +148,26 @@ header {
   cursor: pointer;
   &:hover {
     fill: $orange;
+  }
+}
+#add {
+  margin: 150px auto;
+  width: 100px;
+  height: 100px;
+  fill: rgb(255, 38, 0);
+  cursor: pointer;
+  &:hover {
+    fill: rgb(0, 132, 255);
+  }
+}
+#edit,
+#delete {
+  margin: 0px 10px;
+  fill: rgb(80, 1, 1);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    fill: rgb(255, 38, 0);
   }
 }
