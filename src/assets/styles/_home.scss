@@ -1,46 +1,103 @@
 header {
-  background-color: rgb(0, 43, 59);
+  display: flex;
+  background-color: rgb(80, 1, 1);
   padding: 20px;
-  height: 80px;
   color: white;
+  text-align: center;
+  justify-content: flex-start;
+  h1 {
+    flex-basis: 60%;
+  }
+  button {
+    flex-basis: 20%;
+    background-color: rgb(241, 70, 28);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+  }
 }
 
+#content {
+  margin: 0px 420px;
+  border: 2px solid black;
+  box-shadow: 5px 5px 15px 5px #000000;
+}
 #wrapper {
   display: flex;
+  flex-direction: column;
   height: 100vh;
 
   #sidebar {
-    padding: 20px;
-    display: flex;
-    background-color: rgb(36, 129, 167);
-    flex-basis: 15%;
-    justify-content: flex-start;
-    flex-direction: column;
-    align-items: flex-start;
+    background-color: rgb(241, 70, 28);
     color: white;
-    li {
-      margin: 20px auto;
-      background-color: rgb(255, 255, 255);
-      border-radius: 20px;
-      width: 150px;
-      color: black;
+    height: 50px;
+    line-height: 50px;
+    ul {
+      justify-content: space-around;
+      display: flex;
       text-align: center;
+    }
+    li {
+      margin: 0px 10px;
+      width: 100px;
+      color: rgb(255, 255, 255);
+      cursor: pointer;
+      text-align: center;
+      &:hover {
+        background-color: rgb(0, 132, 255);
+      }
     }
   }
   #todo-page {
-    padding-left: 20px;
     display: flex;
-    background-color: rgb(236, 255, 254);
-    flex-basis: 85%;
+    background-color: rgb(255, 245, 230);
+    flex-basis: 100%;
     flex-direction: column;
-    ul {
+    margin: auto;
+    width: 100%;
+    h1 {
+      border-bottom: 2px black solid;
+      text-align: center;
+      width: 80%;
+      margin: 0px auto;
+    }
+    .todo {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
     }
     li {
-      margin-top: 10px;
-      background-color: rgb(255, 209, 209);
-      border-radius: 20px;
-      width: 400px;
-      text-indent: 15px;
+      flex-basis: 70%;
+      text-align: center;
+      background-color: rgb(0, 132, 255);
+      border-radius: 5px;
+      line-height: 40px;
+      color: white;
     }
+  }
+}
+#add {
+  margin: 150px auto;
+  width: 100px;
+  height: 100px;
+  fill: rgb(255, 38, 0);
+  cursor: pointer;
+  &:hover {
+    fill: rgb(0, 132, 255);
+  }
+}
+#edit,
+#delete {
+  margin: 0px 10px;
+  fill: rgb(80, 1, 1);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  &:hover {
+    fill: rgb(255, 38, 0);
   }
 }
