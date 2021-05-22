@@ -1,5 +1,15 @@
 @use 'variables' as *;
 
+body {
+  background: url(../../img/bg.jpg);
+  background-size: cover;
+  background-repeat: repeat;
+  #bg-wrapper {
+    background-color: rgba(209, 77, 0, 0.63);
+    width: 100%;
+    height: 100%;
+  }
+}
 header {
   display: flex;
   background-color: $brown;
@@ -18,42 +28,42 @@ header {
     color: rgb(255, 255, 255);
     outline: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    height: 40px;
     &:hover {
       background-color: $blue;
     }
     cursor: pointer;
   }
-  svg {
+  #task {
     fill: $orange;
     width: 50px;
     height: 50px;
   }
 }
 
-#content {
-  margin: 0px 420px;
-  border: 2px solid black;
-  box-shadow: 5px 5px 15px 5px #000000;
-}
 #wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  margin: 0px 420px;
+  border: 2px solid black;
+  box-shadow: 5px 5px 15px 5px #000000;
 
-  #sidebar {
+  #navbar {
     background-color: $orange;
     color: white;
     height: 50px;
     line-height: 50px;
     ul {
-      justify-content: space-around;
+      justify-content: space-between;
       display: flex;
       text-align: center;
+      height: 50px;
     }
     li {
-      margin: 0px 10px;
-      width: 100px;
+      margin: 0px 0px;
+      width: 100%;
       color: rgb(255, 255, 255);
       cursor: pointer;
       text-align: center;
@@ -90,39 +100,51 @@ header {
       line-height: 40px;
       color: white;
     }
+    #add-todo-container {
+      margin: 150px auto;
+      #add-button {
+        width: 100px;
+        height: 100px;
+        fill: $orange;
+        cursor: pointer;
+        &:hover {
+          fill: $blue;
+        }
+      }
+      #add-task {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        input {
+          height: 30px;
+        }
+        #button-container {
+          display: flex;
+          gap: 10px;
+          button {
+            color: white;
+            width: 100%;
+            height: 30px;
+            cursor: pointer;
+          }
+          #add-task-btn {
+            background-color: $blue;
+            &:hover {
+              background-color: $red;
+            }
+          }
+          #cancel-task-btn {
+            background-color: $orange;
+            &:hover {
+              background-color: $red;
+            }
+          }
+        }
+      }
+    }
   }
 }
-#add {
-  margin: 150px auto;
-  width: 100px;
-  height: 100px;
-  fill: $orange;
-  cursor: pointer;
-  &:hover {
-    fill: $blue;
-  }
-}
-#edit,
-#delete {
-  margin: 0px 10px;
-  fill: $brown;
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  &:hover {
-    fill: $orange;
-  }
-}
-#add {
-  margin: 150px auto;
-  width: 100px;
-  height: 100px;
-  fill: $orange;
-  cursor: pointer;
-  &:hover {
-    fill: $blue;
-  }
-}
+
 #edit,
 #delete {
   margin: 0px 10px;
