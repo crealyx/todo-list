@@ -1,3 +1,4 @@
+import { Ui } from "./dom";
 class Todo {
   constructor(title, description, dueDate) {
     this.title = title;
@@ -6,8 +7,10 @@ class Todo {
   }
 }
 
-function createTodo(title, description, dueDate) {
-  var todo = new Todo(title, description, dueDate);
+let newTask = getTaskInput();
+
+function createTodo(newTask, description, dueDate) {
+  var todo = new Todo(newTask, description, dueDate);
   return todo;
 }
 
