@@ -92,6 +92,10 @@ header {
       justify-content: center;
       flex-direction: row;
     }
+    #todo-list {
+      display: flex;
+      flex-direction: column;
+    }
     li {
       flex-basis: 70%;
       text-align: center;

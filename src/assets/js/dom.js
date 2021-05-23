@@ -1,3 +1,5 @@
+import { createTodo } from "./newTodo";
+
 const body = document.querySelector("body");
 class createUi {
   // DOM Elements
@@ -62,7 +64,7 @@ class createUi {
     this.homeDOM();
     this.todayDOM();
     this.thisWeekDOM();
-    this.todoPageDOM();
+    this.todoPageTitleDOM();
     this.todoDOM();
     this.todoContainerDOM();
     this.addTodoContainerDOM();
@@ -93,7 +95,7 @@ class createUi {
   thisWeekDOM() {
     this.thisWeek.textContent = "This Week";
   }
-  todoPageDOM() {
+  todoPageTitleDOM() {
     this.todoPageTitle.textContent = "Home";
   }
   todoDOM() {
@@ -168,12 +170,28 @@ Ui.addTaskButton.addEventListener("click", addTaskToPage);
 Ui.cancelTaskButton.addEventListener("click", removeAddPopup);
 Ui.initializeAllDOM();
 
-function getTaskInput() {
-  let newTask = Ui.taskInput.value;
-  return newTask;
-}
+function addTaskToPage() {
+  let todoContainer = createElement(
+    "div",
+    "class",
+    "todo-container",
+    Ui.todoList
+  );
+  let todo = createElement("li", "class", "todo", todoContainer);
+  let newTodo = createTodo();
+  todo.textContent = newTodo.title;
+  let editButton = createSVG(
+    "edit",
+    "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-5 17l1.006-4.036 3.106 3.105-4.112.931zm5.16-1.879l-3.202-3.202 5.841-5.919 3.201 3.2-5.84 5.921z"
+  );
 
-function addTaskToPage() {}
+  let deleteButton = createSVG(
+    "delete",
+    "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"
+  );
+  todoContainer.append(editButton);
+  todoContainer.append(deleteButton);
+}
 
 function removeAddPopup() {
   Ui.addTask.remove();

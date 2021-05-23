@@ -1,7 +1,6 @@
 import "./assets/styles/main.scss";
-
-import { createTodo } from "./assets/js/newTodo";
 import {} from "./assets/js/dom";
+import {} from "./assets/js/newTodo";
 
 // HMR
 if (module.hot) {

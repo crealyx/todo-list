@@ -5,13 +5,20 @@ class Todo {
     this.description = description;
     this.dueDate = dueDate;
   }
+  get setTitle() {
+    return this.title;
+  }
+  set setTitle(text) {
+    this.title = text;
+  }
 }
 
-let newTask = getTaskInput();
+const tasks = [];
 
-function createTodo(newTask, description, dueDate) {
-  var todo = new Todo(newTask, description, dueDate);
+function createTodo(description, dueDate) {
+  var todo = new Todo(Ui.taskInput.value, description, dueDate);
+  tasks.push(todo);
   return todo;
 }
 
-export { createTodo };
+export { Todo, createTodo };
