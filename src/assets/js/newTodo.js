@@ -1,8 +1,7 @@
 import { Ui } from "./dom";
 class Todo {
-  constructor(title, description, dueDate) {
+  constructor(title, dueDate) {
     this.title = title;
-    this.description = description;
     this.dueDate = dueDate;
   }
   get setTitle() {
@@ -15,8 +14,8 @@ class Todo {
 
 const tasks = [];
 
-function createTodo(description, dueDate) {
-  var todo = new Todo(Ui.taskInput.value, description, dueDate);
+function createTodo(dueDate) {
+  var todo = new Todo(Ui.taskInput.value, dueDate);
   tasks.push(todo);
   return todo;
 }

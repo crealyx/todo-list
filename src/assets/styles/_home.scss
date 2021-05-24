@@ -85,18 +85,23 @@ header {
       width: 80%;
       margin: 0px auto;
     }
-    .todo-container {
-      margin-top: 10px;
+    .todo {
+      cursor: pointer;
       display: flex;
-      align-items: center;
       justify-content: center;
-      flex-direction: row;
+      margin: 20px 150px;
+      #todo-text {
+        flex-basis: 70%;
+      }
+      #button-cont {
+        display: none;
+      }
     }
     #todo-list {
       display: flex;
       flex-direction: column;
     }
-    li {
+    #todo-text {
       flex-basis: 70%;
       text-align: center;
       background-color: $blue;
@@ -104,9 +109,9 @@ header {
       line-height: 40px;
       color: white;
     }
-    #add-todo-container {
+    #new-todo-container {
       margin: 150px auto;
-      #add-button {
+      #add-new-todo-button {
         width: 100px;
         height: 100px;
         fill: $orange;
