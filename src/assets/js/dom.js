@@ -1,4 +1,6 @@
-import { createTodo } from "./newTodo";
+import { createTodo, Todo, tasks } from "./newTodo";
+import { removeTodo } from "./removeTodo";
+import { addToComplete } from "./completeTodo";
 
 const body = document.querySelector("body");
 class createUi {
@@ -137,43 +139,77 @@ function createSVG(id, pathAtt) {
   svg.append(path);
   return svg;
 }
-let buttonsOn = false;
+
+function changeDate() {}
 const Ui = new createUi();
-Ui.todoList.addEventListener("click", toggleTodoButtons);
+Ui.initializeAllDOM();
+
+Ui.todoPage.addEventListener("click", todoEvents);
 Ui.addNewTodoButton.addEventListener("click", createAddPopup);
 Ui.addTaskButton.addEventListener("click", addTaskToPage);
 Ui.cancelTaskButton.addEventListener("click", removeAddPopup);
+Ui.todoList.addEventListener("input", changeDate);
+const todoList = document.querySelector("#todo-list");
 
-Ui.initializeAllDOM();
-
-function toggleTodoButtons(e) {
-  if (e.target.id === "todo-text") {
-    if (buttonsOn === true) {
-      e.target.nextSibling.style.display = "none";
-      buttonsOn = false;
-    } else {
-      e.target.nextSibling.style.display = "flex";
-      buttonsOn = true;
+function todoEvents(e) {
+  console.log(tasks);
+  let el = e.target;
+  // Toggle edit,delete buttons when clicked on todo
+  if (el.id === "todo-text") {
+    if (el.dataset.buttonToggle === "true") {
+      el.nextSibling.style.display = "none";
+      el.dataset.buttonToggle = "false";
+    } else if (el.dataset.buttonToggle === "false") {
+      el.nextSibling.style.display = "flex";
+      el.dataset.buttonToggle = "true";
     }
   }
+  // delete todo
+  else if (el.id === "delete") {
+    el.parentElement.parentElement.remove();
+    removeTodo(el.parentElement.parentElement.dataset.number);
+  } else if (el.parentElement.id === "delete") {
+    el.parentElement.parentElement.parentElement.remove();
+    removeTodo(el.parentElement.parentElement.parentElement.dataset.number);
+  }
+  // complete todo
+  else if (el.id === "complete") {
+    el.parentElement.parentElement.remove();
+    addToComplete(el.parentElement.parentElement.dataset.number);
+    removeTodo(el.parentElement.parentElement.dataset.number);
+  } else if (el.parentElement.id === "complete") {
+    el.parentElement.parentElement.parentElement.remove();
+    addToComplete(el.parentElement.parentElement.parentElement.dataset.number);
+    removeTodo(el.parentElement.parentElement.parentElement.dataset.number);
+  }
 }
+let totalTasks = -1;
 function addTaskToPage() {
   let todo = createElement("li", "class", "todo", Ui.todoList);
   let todoText = createElement("p", "id", "todo-text", todo);
-  let newTodo = createTodo();
+  todoText.dataset.buttonToggle = "false";
+  totalTasks++;
+  todo.dataset.number = totalTasks;
+  let newTodo = createTodo(totalTasks);
   todoText.textContent = newTodo.title;
+
+  let dateInput = document.createElement("input");
+  dateInput.setAttribute("type", "date");
+  dateInput.setAttribute("id", "date");
+  dateInput.value = newTodo.dueDate;
+  todoText.append(dateInput);
   let buttonCont = document.createElement("div");
   buttonCont.setAttribute("id", "button-cont");
-  let editButton = createSVG(
-    "edit",
-    "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-5 17l1.006-4.036 3.106 3.105-4.112.931zm5.16-1.879l-3.202-3.202 5.841-5.919 3.201 3.2-5.84 5.921z"
+  let completeButton = createSVG(
+    "complete",
+    "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-1.959 17l-4.5-4.319 1.395-1.435 3.08 2.937 7.021-7.183 1.422 1.409-8.418 8.591z"
   );
 
   let deleteButton = createSVG(
     "delete",
     "M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm4.151 17.943l-4.143-4.102-4.117 4.159-1.833-1.833 4.104-4.157-4.162-4.119 1.833-1.833 4.155 4.102 4.106-4.16 1.849 1.849-4.1 4.141 4.157 4.104-1.849 1.849z"
   );
-  buttonCont.append(editButton);
+  buttonCont.append(completeButton);
   buttonCont.append(deleteButton);
   todo.append(buttonCont);
   return todo;
