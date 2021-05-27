@@ -49,7 +49,7 @@ header {
   margin: 0px 420px;
   border: 2px solid black;
   box-shadow: 5px 5px 15px 5px #000000;
-
+  position: relative;
   #navbar {
     background-color: $orange;
     color: white;
@@ -190,5 +190,89 @@ header {
   @extend #delete;
   &:hover {
     fill: rgb(0, 177, 0);
+  }
+}
+
+#projects {
+  display: none;
+  flex-direction: column;
+  background-color: $brown;
+  position: absolute;
+  margin: 0px 0px;
+  left: -150px;
+  top: 200px;
+  bottom: 350px;
+  min-height: 500px;
+  width: 300px;
+  border: 2px solid black;
+  border-radius: 20px;
+  #projects-title {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    border-bottom: 2px solid rgb(255, 255, 255);
+    margin: 0px 20px;
+  }
+  #projects-container {
+    width: 250px;
+    // height: 400px;
+    margin: 20px auto;
+    .project {
+      display: flex;
+      justify-content: space-between;
+      margin: 5px auto;
+      text-indent: 5px;
+      color: rgb(0, 0, 0);
+      background-color: rgb(255, 245, 230);
+      border-radius: 5px;
+      cursor: pointer;
+      align-items: center;
+      &:hover {
+        background-color: rgba(255, 245, 230, 0.76);
+      }
+      #delete-project {
+        width: 50px;
+      }
+    }
+    #project-input {
+      width: 100%;
+      height: 20px;
+    }
+  }
+  #add-project-button {
+    width: 80%;
+    height: 40px;
+    margin: 5px auto;
+    cursor: pointer;
+    background-color: $blue;
+    color: white;
+    border-radius: 5px;
+    &:hover {
+      background-color: $orange;
+    }
+  }
+  #input-button-container {
+    display: flex;
+    margin: 10px auto;
+    gap: 5px;
+    justify-content: center;
+    color: white;
+    #input-add {
+      background-color: $blue;
+      flex-basis: 50%;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(122, 0, 0);
+      }
+    }
+    #input-cancel {
+      background-color: $orange;
+      flex-basis: 50%;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(122, 0, 0);
+      }
+    }
   }
 }
