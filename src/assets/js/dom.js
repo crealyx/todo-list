@@ -1,7 +1,7 @@
 import { createTodo, Todo, tasks } from "./newTodo";
 import { removeTodo } from "./removeTodo";
 import { addToComplete } from "./completeTodo";
-import { createProject } from "./projects";
+import { createProject, projectsArray } from "./projects";
 
 const body = document.querySelector("body");
 class createUi {
@@ -173,11 +173,12 @@ Ui.initializeAllDOM();
 
 Ui.todoPage.addEventListener("click", todoEvents);
 Ui.addNewTodoButton.addEventListener("click", createAddPopup);
-Ui.addTaskButton.addEventListener("click", addTaskToPage);
+Ui.addTaskButton.addEventListener("click", updateTasks);
 Ui.cancelTaskButton.addEventListener("click", removeAddPopup);
 Ui.projectsButton.addEventListener("click", openProjects);
 Ui.todoList.addEventListener("input", changeDate);
 Ui.projectsPopup.addEventListener("click", projectInput);
+Ui.projectsContainer.addEventListener("click", updatePage);
 
 function changeDate(e) {
   let order = e.target.parentElement.parentElement.dataset.number;
@@ -187,7 +188,6 @@ function changeDate(e) {
 }
 // Projects
 function projectInput(e) {
-  console.log(e.target);
   // Add name input and buttons
   if (e.target.id === "add-project-button") {
     Ui.addProjectButton.remove();
@@ -232,11 +232,22 @@ function projectInput(e) {
     Ui.projectsPopup.append(Ui.addProjectButton);
   } else if (e.target.id === "delete-project") {
     e.target.parentElement.remove();
-  } else if (
+  }
+}
+function updatePage(e) {
+  if (
     e.target.classList.contains("project") ||
     e.target.id === "projects-title"
   ) {
-    Ui.todoPageTitle.textContent = e.target.textContent;
+    let matchedProject = projectsArray.find(
+      (project) => project.name === e.target.textContent
+    );
+    console.log(matchedProject);
+    Ui.todoList.textContent = "";
+    Ui.todoPageTitle.textContent = matchedProject.name;
+    matchedProject.tasks.forEach((task) => {
+      createTask(task.title, task.dueDate);
+    });
   }
 }
 function addProject(name) {
@@ -262,7 +273,6 @@ function openProjects() {
 const todoList = document.querySelector("#todo-list");
 
 function todoEvents(e) {
-  console.log(tasks);
   let el = e.target;
   // Toggle edit,delete buttons when clicked on todo
   if (el.id === "todo-text") {
@@ -295,19 +305,34 @@ function todoEvents(e) {
 }
 
 let totalTasks = -1;
+
+function updateTasks() {
+  let currentPage = projectsArray.find(
+    (project) => project.name == Ui.todoPageTitle.textContent
+  );
+  if (Ui.todoPageTitle.textContent === "Home") {
+    addTaskToPage();
+  } else if (Ui.todoPageTitle.textContent === currentPage.name) {
+    let task = addTaskToPage();
+    currentPage.tasks.push(task);
+  }
+}
 function addTaskToPage() {
+  let newTodo = createTodo(totalTasks);
+  createTask(newTodo.title, newTodo.dueDate);
+  return newTodo;
+}
+function createTask(name, date) {
   let todo = createElement("li", "class", "todo", Ui.todoList);
   let todoText = createElement("p", "id", "todo-text", todo);
   todoText.dataset.buttonToggle = "false";
   totalTasks++;
   todo.dataset.number = totalTasks;
-  let newTodo = createTodo(totalTasks);
-  todoText.textContent = newTodo.title;
-
+  todoText.textContent = name;
   let dateInput = document.createElement("input");
   dateInput.setAttribute("type", "date");
   dateInput.setAttribute("id", "date");
-  dateInput.value = newTodo.dueDate;
+  dateInput.value = date;
   todoText.append(dateInput);
   let buttonCont = document.createElement("div");
   buttonCont.setAttribute("id", "button-cont");
@@ -325,7 +350,6 @@ function addTaskToPage() {
   todo.append(buttonCont);
   return todo;
 }
-
 function removeAddPopup() {
   Ui.addTask.remove();
   Ui.newTodoContainer.append(Ui.addNewTodoButton);
