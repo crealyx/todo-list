@@ -20,11 +20,9 @@ class Todo {
   }
 }
 
-const tasks = [];
 function createTodo(order) {
   var todo = new Todo(Ui.taskInput.value, "today", false, order);
-  tasks.push(todo);
   return todo;
 }
 
-export { Todo, createTodo, tasks };
+export { createTodo };

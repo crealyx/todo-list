@@ -1,4 +1,4 @@
-import { createTodo, Todo, tasks } from "./newTodo";
+import { createTodo } from "./newTodo";
 import { removeTodo } from "./removeTodo";
 import { addToComplete } from "./completeTodo";
 import { createProject, projectsArray } from "./projects";
@@ -145,7 +145,7 @@ class createUi {
     this.addProjectButton.textContent = "Add New Project";
   }
 }
-
+let tasks = [];
 // Functions
 function createElement(elType, attType, att, parent) {
   var el = document.createElement(elType);
@@ -178,6 +178,16 @@ Ui.projectsButton.addEventListener("click", openProjects);
 Ui.todoList.addEventListener("input", changeDate);
 Ui.projectsPopup.addEventListener("click", projectInput);
 Ui.projectsContainer.addEventListener("click", updatePage);
+Ui.navUl.addEventListener("click", switchTabs);
+
+function switchTabs(e) {
+  if (e.target.textContent === "Home") {
+    Ui.todoList.textContent = "";
+    tasks.forEach((task) => {
+      createTask(task.title, task.dueDate, task.order);
+    });
+  }
+}
 
 function changeDate(e) {
   let order = e.target.parentElement.parentElement.dataset.number;
@@ -229,10 +239,18 @@ function projectInput(e) {
     e.target.parentElement.previousSibling.remove();
     e.target.parentElement.remove();
     Ui.projectsPopup.append(Ui.addProjectButton);
-  } else if (e.target.id === "delete-project") {
+  }
+  // Delete projects
+  else if (e.target.id === "delete-project") {
+    let matchedProject = projectsArray.find(
+      (project) => project.name === e.target.parentElement.textContent
+    );
+    tasks = tasks.filter((i) => !matchedProject.tasks.includes(i));
+    matchedProject.tasks = [];
     e.target.parentElement.remove();
   }
 }
+
 function updatePage(e) {
   if (
     e.target.classList.contains("project") ||
@@ -269,8 +287,6 @@ function openProjects() {
     Ui.projectsPopup.style.display = "none";
   }
 }
-const todoList = document.querySelector("#todo-list");
-
 function todoEvents(e) {
   let el = e.target;
   // Toggle edit,delete buttons when clicked on todo
@@ -317,6 +333,7 @@ function updateTasks() {
 function addTaskToPage() {
   let newTodo = createTodo(totalTasks);
   createTask(newTodo.title, newTodo.dueDate, newTodo.order);
+  tasks.push(newTodo);
   totalTasks++;
   return newTodo;
 }
@@ -359,4 +376,4 @@ function createAddPopup() {
   Ui.newTodoContainer.style.margin = "80px 300px";
 }
 
-export { Ui };
+export { Ui, tasks };

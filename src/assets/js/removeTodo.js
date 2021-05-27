@@ -1,6 +1,5 @@
-import { tasks } from "./newTodo";
 import { projectsArray } from "./projects";
-import { Ui } from "./dom";
+import { Ui, tasks } from "./dom";
 
 function removeTodo(order) {
   if (Ui.todoPageTitle.textContent === "Home") {
@@ -17,7 +16,6 @@ function removeTodo(order) {
     matchedProject.tasks.splice(projectIndex, 1);
     tasks.splice(index, 1);
   }
-
   return tasks;
 }
 
