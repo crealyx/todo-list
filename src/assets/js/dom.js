@@ -153,7 +153,6 @@ function createElement(elType, attType, att, parent) {
   parent.appendChild(el);
   return el;
 }
-
 function createSVG(id, pathAtt) {
   var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
   svg.setAttribute("id", id);
@@ -167,7 +166,7 @@ function createSVG(id, pathAtt) {
   svg.append(path);
   return svg;
 }
-
+let totalTasks = 0;
 const Ui = new createUi();
 Ui.initializeAllDOM();
 
@@ -242,11 +241,11 @@ function updatePage(e) {
     let matchedProject = projectsArray.find(
       (project) => project.name === e.target.textContent
     );
-    console.log(matchedProject);
     Ui.todoList.textContent = "";
     Ui.todoPageTitle.textContent = matchedProject.name;
+    console.log(matchedProject.tasks);
     matchedProject.tasks.forEach((task) => {
-      createTask(task.title, task.dueDate);
+      createTask(task.title, task.dueDate, task.order);
     });
   }
 }
@@ -286,25 +285,23 @@ function todoEvents(e) {
   }
   // delete todo
   else if (el.id === "delete") {
-    el.parentElement.parentElement.remove();
     removeTodo(el.parentElement.parentElement.dataset.number);
+    el.parentElement.parentElement.remove();
   } else if (el.parentElement.id === "delete") {
-    el.parentElement.parentElement.parentElement.remove();
     removeTodo(el.parentElement.parentElement.parentElement.dataset.number);
+    el.parentElement.parentElement.parentElement.remove();
   }
   // complete todo
   else if (el.id === "complete") {
+    removeTodo(el.parentElement.parentElement.dataset.number);
     el.parentElement.parentElement.remove();
     addToComplete(el.parentElement.parentElement.dataset.number);
-    removeTodo(el.parentElement.parentElement.dataset.number);
   } else if (el.parentElement.id === "complete") {
+    removeTodo(el.parentElement.parentElement.parentElement.dataset.number);
     el.parentElement.parentElement.parentElement.remove();
     addToComplete(el.parentElement.parentElement.parentElement.dataset.number);
-    removeTodo(el.parentElement.parentElement.parentElement.dataset.number);
   }
 }
-
-let totalTasks = -1;
 
 function updateTasks() {
   let currentPage = projectsArray.find(
@@ -319,15 +316,15 @@ function updateTasks() {
 }
 function addTaskToPage() {
   let newTodo = createTodo(totalTasks);
-  createTask(newTodo.title, newTodo.dueDate);
+  createTask(newTodo.title, newTodo.dueDate, newTodo.order);
+  totalTasks++;
   return newTodo;
 }
-function createTask(name, date) {
+function createTask(name, date, order) {
   let todo = createElement("li", "class", "todo", Ui.todoList);
   let todoText = createElement("p", "id", "todo-text", todo);
   todoText.dataset.buttonToggle = "false";
-  totalTasks++;
-  todo.dataset.number = totalTasks;
+  todo.dataset.number = order;
   todoText.textContent = name;
   let dateInput = document.createElement("input");
   dateInput.setAttribute("type", "date");
