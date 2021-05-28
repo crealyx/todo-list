@@ -2,6 +2,7 @@ import { createTodo } from "./newTodo";
 import { removeTodo } from "./removeTodo";
 import { addToComplete } from "./completeTodo";
 import { createProject, projectsArray } from "./projects";
+import { format, isToday, isThisWeek } from "date-fns";
 
 const body = document.querySelector("body");
 class createUi {
@@ -183,7 +184,22 @@ Ui.navUl.addEventListener("click", switchTabs);
 function switchTabs(e) {
   if (e.target.textContent === "Home") {
     Ui.todoList.textContent = "";
+    Ui.todoPageTitle.textContent = "Home";
     tasks.forEach((task) => {
+      createTask(task.title, task.dueDate, task.order);
+    });
+  } else if (e.target.textContent === "Today") {
+    Ui.todoList.textContent = "";
+    Ui.todoPageTitle.textContent = "Today";
+    let todayTasks = tasks.filter((task) => isToday(task.dueDate));
+    todayTasks.forEach((task) => {
+      createTask(task.title, task.dueDate, task.order);
+    });
+  } else if (e.target.textContent === "This Week") {
+    Ui.todoList.textContent = "";
+    Ui.todoPageTitle.textContent = "This Week";
+    let todayTasks = tasks.filter((task) => isThisWeek(task.dueDate));
+    todayTasks.forEach((task) => {
       createTask(task.title, task.dueDate, task.order);
     });
   }
@@ -192,8 +208,9 @@ function switchTabs(e) {
 function changeDate(e) {
   let order = e.target.parentElement.parentElement.dataset.number;
   let changedDate = tasks.find((task) => task.order == order);
-  console.log(changedDate);
-  changedDate.setDate = e.target.value;
+  let inputValue = e.target.value;
+  let date = new Date(inputValue);
+  changedDate.setDate = date;
 }
 // Projects
 function projectInput(e) {
@@ -289,6 +306,7 @@ function openProjects() {
 }
 function todoEvents(e) {
   let el = e.target;
+  console.log(el);
   // Toggle edit,delete buttons when clicked on todo
   if (el.id === "todo-text") {
     if (el.dataset.buttonToggle === "true") {
@@ -323,7 +341,11 @@ function updateTasks() {
   let currentPage = projectsArray.find(
     (project) => project.name == Ui.todoPageTitle.textContent
   );
-  if (Ui.todoPageTitle.textContent === "Home") {
+  if (
+    Ui.todoPageTitle.textContent === "Home" ||
+    Ui.todoPageTitle.textContent === "Today" ||
+    Ui.todoPageTitle.textContent === "This Week"
+  ) {
     addTaskToPage();
   } else if (Ui.todoPageTitle.textContent === currentPage.name) {
     let task = addTaskToPage();

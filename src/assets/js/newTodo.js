@@ -1,8 +1,9 @@
 import { Ui } from "./dom";
+import { format } from "date-fns";
 class Todo {
-  constructor(title, dueDate, isComplete, order) {
+  constructor(title, date, isComplete, order) {
     this.title = title;
-    this.dueDate = dueDate;
+    this.dueDate = date;
     this.isComplete = isComplete;
     this.order = order;
   }
@@ -21,7 +22,9 @@ class Todo {
 }
 
 function createTodo(order) {
-  var todo = new Todo(Ui.taskInput.value, "today", false, order);
+  let newDate = new Date();
+  let formattedDate = format(newDate, "dd/MM/yyyy");
+  var todo = new Todo(Ui.taskInput.value, formattedDate, false, order);
   return todo;
 }
 

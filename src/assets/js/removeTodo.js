@@ -2,7 +2,11 @@ import { projectsArray } from "./projects";
 import { Ui, tasks } from "./dom";
 
 function removeTodo(order) {
-  if (Ui.todoPageTitle.textContent === "Home") {
+  if (
+    Ui.todoPageTitle.textContent === "Home" ||
+    Ui.todoPageTitle.textContent === "Today" ||
+    Ui.todoPageTitle.textContent === "This Week"
+  ) {
     let taskOrder = tasks.find((task) => task.order == order);
     let index = tasks.indexOf(taskOrder);
     tasks.splice(index, 1);
