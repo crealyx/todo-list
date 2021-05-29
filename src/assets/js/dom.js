@@ -123,7 +123,8 @@ class createUi {
   }
   taskTitleDOM() {
     this.taskTitle.setAttribute("for", "taskName");
-    this.taskTitle.textContent = "Task:";
+    this.taskTitle.setAttribute("id", "task-title");
+    this.taskTitle.textContent = "Task Name:";
   }
   taskInputDOM() {
     this.taskInput.setAttribute("id", "taskName");
@@ -354,18 +355,24 @@ function todoEvents(e) {
 }
 
 function updateTasks() {
-  let currentPage = projectsArray.find(
-    (project) => project.name == Ui.todoPageTitle.textContent
-  );
-  if (
-    Ui.todoPageTitle.textContent === "Home" ||
-    Ui.todoPageTitle.textContent === "Today" ||
-    Ui.todoPageTitle.textContent === "This Week"
-  ) {
-    addTaskToPage();
-  } else if (Ui.todoPageTitle.textContent === currentPage.name) {
-    let task = addTaskToPage();
-    currentPage.tasks.push(task);
+  if (Ui.taskInput.value === "") {
+    alert("Please fill in the task name");
+  } else {
+    let currentPage = projectsArray.find(
+      (project) => project.name == Ui.todoPageTitle.textContent
+    );
+    if (
+      Ui.todoPageTitle.textContent === "Home" ||
+      Ui.todoPageTitle.textContent === "Today" ||
+      Ui.todoPageTitle.textContent === "This Week"
+    ) {
+      addTaskToPage();
+    } else if (Ui.todoPageTitle.textContent === currentPage.name) {
+      let task = addTaskToPage();
+      currentPage.tasks.push(task);
+    }
+    Ui.taskInput.value = "";
+    removeAddPopup();
   }
 }
 function addTaskToPage() {
@@ -409,12 +416,12 @@ function createTask(name, date, order) {
 function removeAddPopup() {
   Ui.addTask.remove();
   Ui.newTodoContainer.append(Ui.addNewTodoButton);
-  Ui.newTodoContainer.style.margin = "150px auto";
+  Ui.newTodoContainer.style.margin = "50px auto";
 }
 
 function createAddPopup() {
   Ui.addNewTodoButton.remove();
   Ui.newTodoContainer.append(Ui.addTask);
-  Ui.newTodoContainer.style.margin = "80px 300px";
+  Ui.newTodoContainer.style.margin = "30px 300px";
 }
 export { Ui, tasks };
