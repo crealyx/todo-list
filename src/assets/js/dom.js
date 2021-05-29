@@ -186,21 +186,34 @@ function switchTabs(e) {
     Ui.todoList.textContent = "";
     Ui.todoPageTitle.textContent = "Home";
     tasks.forEach((task) => {
-      createTask(task.title, task.dueDate, task.order);
+      createTask(
+        task.title,
+        format(new Date(task.dueDate), "yyyy-MM-dd"),
+        task.order
+      );
     });
   } else if (e.target.textContent === "Today") {
     Ui.todoList.textContent = "";
     Ui.todoPageTitle.textContent = "Today";
     let todayTasks = tasks.filter((task) => isToday(task.dueDate));
+    console.log(todayTasks);
     todayTasks.forEach((task) => {
-      createTask(task.title, task.dueDate, task.order);
+      createTask(
+        task.title,
+        format(new Date(task.dueDate), "yyyy-MM-dd"),
+        task.order
+      );
     });
   } else if (e.target.textContent === "This Week") {
     Ui.todoList.textContent = "";
     Ui.todoPageTitle.textContent = "This Week";
     let todayTasks = tasks.filter((task) => isThisWeek(task.dueDate));
     todayTasks.forEach((task) => {
-      createTask(task.title, task.dueDate, task.order);
+      createTask(
+        task.title,
+        format(new Date(task.dueDate), "yyyy-MM-dd"),
+        task.order
+      );
     });
   }
 }
@@ -278,7 +291,6 @@ function updatePage(e) {
     );
     Ui.todoList.textContent = "";
     Ui.todoPageTitle.textContent = matchedProject.name;
-    console.log(matchedProject.tasks);
     matchedProject.tasks.forEach((task) => {
       createTask(task.title, task.dueDate, task.order);
     });
@@ -397,5 +409,5 @@ function createAddPopup() {
   Ui.newTodoContainer.append(Ui.addTask);
   Ui.newTodoContainer.style.margin = "80px 300px";
 }
-
+localStorage.setItem(tasks);
 export { Ui, tasks };
