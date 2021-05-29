@@ -23,7 +23,7 @@ class Todo {
 
 function createTodo(order) {
   let newDate = new Date();
-  let formattedDate = format(newDate, "dd/MM/yyyy");
+  let formattedDate = format(newDate, "yyyy-MM-dd");
   var todo = new Todo(Ui.taskInput.value, formattedDate, false, order);
   return todo;
 }
