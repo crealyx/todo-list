@@ -1,12 +1,11 @@
 import { tasks } from "./dom";
-let completedArray = [];
+
+const completedArray = [];
 
 function addToComplete(order) {
-  let completedTask = tasks.find((task) => task.order == order);
-  console.log(completedTask);
+  const completedTask = tasks.find((task) => task.order === order);
   completedArray.push(completedTask);
-  console.log(completedArray);
   return completedArray;
 }
 
-export { addToComplete };
+export default { addToComplete };

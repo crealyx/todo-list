@@ -7,14 +7,15 @@ class Project {
   get getName() {
     return this.name;
   }
+
   set setName(name) {
-    return (this.name = name);
+    this.name = name;
   }
 }
 const projectsArray = [];
 
 function createProject(name) {
-  let project = new Project(name);
+  const project = new Project(name);
   projectsArray.push(project);
   return project;
 }
